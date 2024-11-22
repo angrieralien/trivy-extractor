@@ -1,0 +1,5 @@
+trivyExtractor:
+  tag: v1.0.0
+  repository: metal-toolbox
+  namespacesTeamConfigMapName: namespaces
+  imagePullSecret: trivy-operator-image-pull-secret

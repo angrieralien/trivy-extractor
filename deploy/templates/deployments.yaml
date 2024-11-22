@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trivy-extractor-deployment
+  labels:
+    app: trivy-extractor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trivy-extractor
+  template:
+    metadata:
+      labels:
+        app: trivy-extractor
+    spec:
+      containers:
+      - name: trivy-extractor
+        image:  ghcr.io/{{ .Values.trivyExtractor.repository }}/trivy-extractor/trivy-extractor:{{ .Values.trivyExtractor.tag }}
+        imagePullPolicy: Always
+        command: ["/usr/bin/trivy-extractor"]
+        ports:
+        - containerPort: 2112
+        volumeMounts:
+        - name: namespaces
+          mountPath: "/data"
+          readOnly: true
+        resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+      imagePullSecrets:
+      - name: {{ .Values.trivyExtractor.imagePullSecrets }}
+      volumes:
+      - name: namespaces
+        configMap:
+          name: {{ .Values.trivyExtractor.namespacesTeamConfigMapName }}
+   
