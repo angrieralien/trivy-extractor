@@ -4,7 +4,7 @@ Enriches trivy metric data with a namespace team mapping. This allows a Security
 
 # Configuration
 
-Simply add a new configmap to the k8s namespace and update the `trivyExtractor.namespacesTeamConfigMapName` value in the `vaules.yaml` file.
+Simply add a new configmap to the k8s namespace and update the `trivyExtractor.namespacesTeamConfigMapName` value in the `values.yaml` file.
 
 
 Example config map:
